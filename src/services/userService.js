@@ -13,7 +13,7 @@ let handlerUserLogin = (email, password) => {
                 //compare password
                 let user = await db.User.findOne({
                     where: { email: email },
-                    attributes: ['email', 'roleId', 'password'],
+                    attributes: ['email', 'roleId', 'password', 'firstName', 'lastName'],
                     raw: true
                 });
                 if (user) {
@@ -101,7 +101,7 @@ let createNewUser = (data) => {
                     message: 'Your email is already in used. Please try another email'
                 });
             }
-            else{
+            else {
                 let hashPasswordFromBcrypt = await hashUserPassword(data.password);
                 await db.User.create({
                     email: data.email,
@@ -200,24 +200,24 @@ let updateUserData = (data) => {
 
 let getAllCodeService = (typeInput) => {
     return new Promise(async (resolve, reject) => {
-        try{
-            if(!typeInput){
+        try {
+            if (!typeInput) {
                 resolve({
                     errCode: 1,
                     errMessage: 'Missing required parameters'
                 })
             }
-            else{
+            else {
                 let res = {};
                 var allCode = await db.Allcode.findAll({
-                    where: {type : typeInput}
+                    where: { type: typeInput }
                 });
                 res.errCode = 0;
                 res.data = allCode;
                 resolve(res);
             }
-            
-        }catch(e){
+
+        } catch (e) {
             reject(e);
         }
     })
