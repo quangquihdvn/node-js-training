@@ -5,6 +5,7 @@ let handlerLogin = async (req, res) => {
     let email = req.body.email;
     let password = req.body.password;
 
+
     if (!email || !password) {
         return res.status(500).json({
             errCode: 1,
@@ -65,10 +66,10 @@ let handlerDeleteUser = async (req, res) => {
 }
 
 let getAllCode = async (req, res) => {
-    try{
+    try {
         let data = await userService.getAllCodeService(req.query.type);
         return res.status(200).json(data);
-    }catch(e){
+    } catch (e) {
         console(e);
         return res.status(200).json({
             errCode: -1,
