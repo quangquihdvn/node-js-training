@@ -49,7 +49,6 @@ let handlerCreateNewUser = async (req, res) => {
 
 let handlerEditUser = async (req, res) => {
     let data = req.body;
-    console.log(data);
     var message = await userService.updateUserData(data);
     return res.status(200).json(message);
 }
@@ -70,7 +69,6 @@ let getAllCode = async (req, res) => {
         let data = await userService.getAllCodeService(req.query.type);
         return res.status(200).json(data);
     } catch (e) {
-        console(e);
         return res.status(200).json({
             errCode: -1,
             errMessage: 'Error from server'
